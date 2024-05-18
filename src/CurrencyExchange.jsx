@@ -12,12 +12,14 @@ const CurrencyConverter = () => {
         const response = await axios.get('https://api.currencyfreaks.com/latest', {
           params: {
             apikey: 'daf5e71917614d3e89e4cc558cb764e4',
-            symbols: 'AUD,CNY,INR,KRW,USD',
+            symbols: 'AUD,CNY,INR,KRW,USD,IDR',
           },
         });
+        console.log('API Response:', response.data); 
         setExchangeRates(response.data.rates);
         setLoading(false);
       } catch (error) {
+        console.error('API Error:', error); 
         setError('Failed to fetch exchange rates');
         setLoading(false);
       }
@@ -26,10 +28,18 @@ const CurrencyConverter = () => {
     fetchExchangeRates();
   }, []);
 
-  const convertCurrency = (currency) => {
+  const convertCurrencyToIDR = (currency) => {
     if (!exchangeRates) return null;
     const rate = exchangeRates[currency];
-    return (100 * rate).toFixed(2); // Convert 100 units of the given currency to IDR
+    const usdToIdrRate = exchangeRates['IDR'];
+    console.log(`Converting 100 ${currency} at rate ${rate} and USD to IDR rate ${usdToIdrRate}`); 
+
+    if (!rate || !usdToIdrRate) {
+      setError('Required rate not available');
+      return null;
+    }
+
+    return (100 / rate * usdToIdrRate).toFixed(2);
   };
 
   return (
@@ -48,23 +58,23 @@ const CurrencyConverter = () => {
             <tbody>
               <tr>
                 <td>100 Australian Dollar (AUD)</td>
-                <td>{convertCurrency('AUD')} IDR</td>
+                <td>{convertCurrencyToIDR('AUD')} IDR</td>
               </tr>
               <tr>
                 <td>100 Chinese Yuan (CNY)</td>
-                <td>{convertCurrency('CNY')} IDR</td>
+                <td>{convertCurrencyToIDR('CNY')} IDR</td>
               </tr>
               <tr>
                 <td>100 Indian Rupee (INR)</td>
-                <td>{convertCurrency('INR')} IDR</td>
+                <td>{convertCurrencyToIDR('INR')} IDR</td>
               </tr>
               <tr>
                 <td>100 South Korean Won (KRW)</td>
-                <td>{convertCurrency('KRW')} IDR</td>
+                <td>{convertCurrencyToIDR('KRW')} IDR</td>
               </tr>
               <tr>
                 <td>100 United States Dollar (USD)</td>
-                <td>{convertCurrency('USD')} IDR</td>
+                <td>{convertCurrencyToIDR('USD')} IDR</td>
               </tr>
               <tr className="centered-link-row">
                 <td colSpan="2">
