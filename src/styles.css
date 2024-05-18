@@ -137,28 +137,15 @@
 .image-section h2 {
     margin-bottom: 20px;
 }
-  
-.content-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow-y: auto;
-}
+
 
 .content-section {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow-y: auto;
+    overflow-y: hidden;
 
-}.content-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow-y: auto;
 }
 
 .caption{
