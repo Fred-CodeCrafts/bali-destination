@@ -11,7 +11,7 @@ const WeatherData = () => {
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const apiKey = 'HRY9c4YA00HKUw544LWeAW2XfgttBuEL';
+        const apiKey = 'JIKISZjxKvk1ZsKKNDOnIEVrRQVs12Qv';
         const location = 'bali';
         const weatherApiUrl = `https://api.tomorrow.io/v4/weather/realtime?units=metric&location=${location}&apikey=${apiKey}`;
 
